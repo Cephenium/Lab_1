@@ -501,9 +501,13 @@ visitors %&gt;% count(admission, setting)</code></pre>
 <h3>Exercise e.</h3>
 <p><em>How many attraction had more than 1 million visitors in
 2022?</em></p>
-<pre class="r"><code>#visitors %&gt;% 
-#  filter(n_2022 &gt; 100000) %&gt;%
-#  count()</code></pre>
+<pre class="r"><code>visitors %&gt;% 
+  filter(n_2022 &gt; 100000) %&gt;%
+  count()</code></pre>
+<pre><code>## # A tibble: 1 × 1
+##       n
+##   &lt;int&gt;
+## 1   212</code></pre>
 </div>
 </div>
 <div id="question-5" class="section level2">
@@ -543,9 +547,13 @@ visitors in 2022?</em></p>
 <p><em>How many regions have more than 50 tourist attraction in the data
 set? (Hint: You will need to tabulate the data before
 filtering.)</em></p>
-<pre class="r"><code>#visitors %&gt;% 
-#  _____(region) %&gt;%
-#  filter(______)</code></pre>
+<pre class="r"><code>visitors %&gt;% 
+  count(region) %&gt;%
+  filter(n &gt; 50)</code></pre>
+<pre><code>## # A tibble: 1 × 2
+##   region       n
+##   &lt;chr&gt;    &lt;int&gt;
+## 1 Scotland    97</code></pre>
 </div>
 </div>
 </div>
@@ -568,11 +576,15 @@ attractions?</em></p>
 <h3>Exercise h.</h3>
 <p><em>Perform the same calculation for the 2021 admissions
 data.</em></p>
-<pre class="r"><code>#visitors %&gt;% 
-#  ______(
-#    __________,
-#    __________
-#  )</code></pre>
+<pre class="r"><code>visitors %&gt;% 
+  summarise(
+    mean_2022 = mean(n_2021 , na.rm = TRUE),
+    med_2022 = median(n_2021, na.rm = TRUE)
+  )</code></pre>
+<pre><code>## # A tibble: 1 × 2
+##   mean_2022 med_2022
+##       &lt;dbl&gt;    &lt;dbl&gt;
+## 1   232431.   129829</code></pre>
 <p>All values in the output are <code>NA</code>!</p>
 </div>
 <div id="exercise-i." class="section level3">
@@ -580,6 +592,8 @@ data.</em></p>
 <p><em>What does <code>NA</code> stand for and why are you getting this
 as your answer to the previous question.</em></p>
 <p><strong>Write your answer here</strong></p>
+<p>NA stands for Not Available and shows / represents missing values in
+the dat astructure</p>
 </div>
 <div id="exercise-j." class="section level3">
 <h3>Exercise j.</h3>
@@ -618,11 +632,15 @@ Discuss in your group what this suggests about the data.</em></p>
 <h2>Question 8</h2>
 <div id="exercise-l." class="section level3">
 <h3>Exercise l.</h3>
-<pre class="r"><code>#visitors %&gt;% 
-#  summarise(
-#     __________,
-#     __________,
-#  )</code></pre>
+<pre class="r"><code>visitors %&gt;% 
+  summarise(
+    max_2022 = max(n_2022),
+    min_2022 = min(n_2022)
+  )</code></pre>
+<pre><code>## # A tibble: 1 × 2
+##   max_2022 min_2022
+##      &lt;dbl&gt;    &lt;dbl&gt;
+## 1  5636844     1130</code></pre>
 </div>
 </div>
 <div id="question-9" class="section level2">
@@ -657,8 +675,17 @@ visitors_with_nations %&gt;%
 <p><em>How many tourist attractions are there in each of the 4 nations?
 From this, discuss in your group how reliable you think the
 inter-quartile estimates are.</em></p>
-<pre class="r"><code>#________ %&gt;%
-#  ______(_______)</code></pre>
+<pre class="r"><code>visitors_with_nations %&gt;%
+  group_by(nation) %&gt;%
+  count()</code></pre>
+<pre><code>## # A tibble: 4 × 2
+## # Groups:   nation [4]
+##   nation               n
+##   &lt;chr&gt;            &lt;int&gt;
+## 1 England            240
+## 2 Northern Ireland     9
+## 3 Scotland            97
+## 4 Wales                2</code></pre>
 </div>
 </div>
 </div>
@@ -668,7 +695,22 @@ inter-quartile estimates are.</em></p>
 <h3>Exercise n.</h3>
 <p><em>Within each of the 4 nations, what is the proportion of tourist
 attractions that have free admission for all visitors?</em></p>
-<pre class="r"><code># Write your code here</code></pre>
+<pre class="r"><code>visitors_with_nations %&gt;%
+  count(attraction)</code></pre>
+<pre><code>## # A tibble: 348 × 2
+##    attraction                                         n
+##    &lt;chr&gt;                                          &lt;int&gt;
+##  1 1066 Battle of Hastings, Abbey and Battlefield     1
+##  2 Abbey House Museum                                 1
+##  3 Abertarff House                                    1
+##  4 Alice Holt Forest                                  1
+##  5 Alloa Tower                                        1
+##  6 Anglesey Abbey                                     1
+##  7 Anne Hathaway&#39;s Cottage                            1
+##  8 Arbeia South Sheilds Roman Fort                    1
+##  9 Ashmolean Museum Oxford                            1
+## 10 Aston Hall                                         1
+## # ℹ 338 more rows</code></pre>
 </div>
 <div id="exercise-o." class="section level3">
 <h3>Exercise o.</h3>
